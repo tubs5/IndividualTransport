@@ -1,11 +1,13 @@
 package org.example.indivudualtransport.Controller;
 
+import org.example.indivudualtransport.Model.ComputedRoute;
 import org.example.indivudualtransport.Model.bing.BingMapsResponse;
 import org.example.indivudualtransport.Model.Route;
 import org.example.indivudualtransport.Model.TypeOfTravel;
 import org.example.indivudualtransport.Model.bing.ItineraryItem;
 import org.example.indivudualtransport.Model.bing.Resource;
 import org.example.indivudualtransport.Service.RouteService;
+import org.example.indivudualtransport.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -22,42 +24,27 @@ import java.util.List;
 public class RouteController {
     @Autowired
     RouteService routeService;
-
+    @Autowired
+    UserService userService;
     @GetMapping()
-    public ResponseEntity<List<Route>> getRoute(@PathVariable String modeOfTransport,
-                                                @PathVariable String startPos, @PathVariable String dest){
-        return ResponseEntity.ok(routeService.getRoute(TypeOfTravel.valueOf(modeOfTransport),startPos,dest));
+    public ResponseEntity<ComputedRoute> getRoute(@PathVariable String modeOfTransport,
+                                                  @PathVariable String startPos, @PathVariable String dest){
+        return ResponseEntity.ok(routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport)));
     }
     @PostMapping("/favorite")
-    public ResponseEntity<String> favorite(@RequestHeader String username, @PathVariable String modeOfTransport,
+    public ResponseEntity<ComputedRoute> favorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
+        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport));
+        userService.addFavorite(route.getRoute(),username);
 
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(route);
     }
     @DeleteMapping("/favorite")
-    public ResponseEntity<String> unFavorite(@RequestHeader String username, @PathVariable String modeOfTransport,
+    public ResponseEntity<ComputedRoute> unFavorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
-        return ResponseEntity.ok(null);
+        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport));
+        userService.removeFavorite(route.getRoute(),username);
+
+        return ResponseEntity.ok(route);
     }
-
-    @GetMapping("bing")
-    public ResponseEntity<List<Route>> getRouteBing(@PathVariable String modeOfTransport,
-                                                @PathVariable String startPos, @PathVariable String dest){
-        RestTemplate resT = new RestTemplate();
-
-//TODO: MUST BE Driving [default] OR Walking And make into a service
-        ResponseEntity<BingMapsResponse> response =
-                resT.getForEntity("http://dev.virtualearth.net/REST/v1/Routes?wayPoint.1="+startPos+"&wp.2="+dest+"&maxSolutions=3&travelMode="+modeOfTransport+"&key="+secret.bingKey,
-                        BingMapsResponse.class);
-
-        for (ItineraryItem itineraryItem : response.getBody().getResourceSets()[0].getResources()[0].getRouteLegs()[0].getItineraryItems()) {
-            System.out.println(itineraryItem.getInstruction().getText());
-        }
-
-
-
-        return ResponseEntity.ok(routeService.getRoute(TypeOfTravel.valueOf(modeOfTransport),startPos,dest));
-    }
-
 }

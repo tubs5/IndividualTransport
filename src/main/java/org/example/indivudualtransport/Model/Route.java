@@ -1,30 +1,29 @@
 package org.example.indivudualtransport.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Tobias Heidlund
  */
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PROTECTED, force=true)
 @Data
 @Entity
 public class Route {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    TypeOfTravel typeOfTravel;
-    Long distance;
-    String time;
-    String start;
-    String stop;
-    @Column(length = 61000)
-    String waypoints;
+    final TypeOfTravel typeOfTravel;
+    final Double distance;
+    final Double time;
+    final String start;
+    final String stop;
+    @ElementCollection
+    List<String> waypoints;
 
 
 }

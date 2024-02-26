@@ -1,5 +1,5 @@
 package org.example.indivudualtransport.Model;
 
 public enum TypeOfTravel {
-    Car,Bike,Foot
+    Car,Bike,Foot,All
 }

@@ -10,5 +10,6 @@ public interface UserRepository extends JpaRepository<UserFavorite,Long> {
 
     List<UserFavorite> getByUsername(String username);
     void deleteByUsernameAndRoute(String username, Route route);
+    UserFavorite getByUsernameAndRoute(String username, Route route);
 
 }

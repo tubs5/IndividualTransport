@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class RouteDebugController {
 
     @GetMapping("possibleRoutes")
     public ResponseEntity<HashMap<String,String>> possibleRoutes(){
-        return ResponseEntity.ok(routeService.getPossibleRoutes());
+        return ResponseEntity.ok(routeService.getPossibleRoutes(TypeOfTravel.Foot));
     }
     @GetMapping("test")
     public ResponseEntity<Route> testRoute(){
-        return ResponseEntity.ok(new Route(0, TypeOfTravel.Foot,101L,"time","Start","Stop","Waypoints"));
+        return ResponseEntity.ok(new Route(0, TypeOfTravel.Foot,101D,324D,"Start","Stop",new ArrayList<>()));
     }
 
     @PostMapping("addRoute")

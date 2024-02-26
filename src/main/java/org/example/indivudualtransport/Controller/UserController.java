@@ -1,8 +1,8 @@
 package org.example.indivudualtransport.Controller;
 
+import org.example.indivudualtransport.Model.ComputedRoute;
 import org.example.indivudualtransport.Model.Route;
 import org.example.indivudualtransport.Model.TypeOfTravel;
-import org.example.indivudualtransport.Service.RouteService;
 import org.example.indivudualtransport.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author Tobias Heidlund
  */
 @RestController
-@RequestMapping("api/v1/routes/favorites")
+@RequestMapping("api/v1/favorite")
 public class UserController {
     @Autowired
     UserService userService;
@@ -26,16 +26,17 @@ public class UserController {
          else return ResponseEntity.ok(routes);
     }
     @GetMapping("{id}")
-    public ResponseEntity<Route> getRoute(@RequestHeader String username, @PathVariable long id){
-        Route route = userService.getRouteById(id);
+    public ResponseEntity<ComputedRoute> getRoute(@RequestHeader String username, @PathVariable long id){
+        ComputedRoute route = userService.getRouteById(id);
         if (route == null) return ResponseEntity.noContent().build();
         else return ResponseEntity.ok(route);
     }
-    @GetMapping("{id}/{TypeOfTravel}")
-    public ResponseEntity<Route> getRoute(@RequestHeader String username, @PathVariable long id,@PathVariable TypeOfTravel typeOfTravel){
-        Route route = userService.getRouteById(id);
-        if (route == null) return ResponseEntity.noContent().build();
-        else return ResponseEntity.ok(route);
+    @GetMapping("{from}/{to}/{TypeOfTravel}")
+    public ResponseEntity<List<ComputedRoute>> getRoute(@RequestHeader String username,@PathVariable TypeOfTravel TypeOfTravel,
+        @PathVariable String from, @PathVariable String to){
+        List<ComputedRoute> routes = userService.getRouteFavoritesFromTo(username,from,to,TypeOfTravel);
+        if (routes.isEmpty()) return ResponseEntity.noContent().build();
+        else return ResponseEntity.ok(routes);
     }
 
     @DeleteMapping("{id}")

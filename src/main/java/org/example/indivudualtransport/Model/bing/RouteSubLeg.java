@@ -8,5 +8,6 @@ import lombok.ToString;
 public class RouteSubLeg{
     double travelDistance;
     int travelDuration;
+    Waypoint startWaypoint, endWaypoint;
 
 }
