@@ -1,6 +1,6 @@
 package org.example.indivudualtransport.Service;
 
-import org.example.indivudualtransport.Model.Weather;
+import org.example.indivudualtransport.Model.route.Weather;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;

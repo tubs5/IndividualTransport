@@ -1,7 +1,7 @@
 package org.example.indivudualtransport.Repository;
 
-import org.example.indivudualtransport.Model.Route;
-import org.example.indivudualtransport.Model.TypeOfTravel;
+import org.example.indivudualtransport.Model.route.Route;
+import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

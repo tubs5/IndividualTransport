@@ -1,8 +1,8 @@
 package org.example.indivudualtransport.Service;
 
 import org.example.indivudualtransport.secret;
-import org.example.indivudualtransport.Model.Route;
-import org.example.indivudualtransport.Model.TypeOfTravel;
+import org.example.indivudualtransport.Model.route.Route;
+import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Model.bing.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 @Service
-public class BIngService {
+public class BingService {
 
     public ArrayList<Route> getCarPath(String startPos, String dest){
         System.err.println("REQUESTING BING");

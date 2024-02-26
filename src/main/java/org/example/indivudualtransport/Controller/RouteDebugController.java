@@ -1,7 +1,7 @@
 package org.example.indivudualtransport.Controller;
 
-import org.example.indivudualtransport.Model.Route;
-import org.example.indivudualtransport.Model.TypeOfTravel;
+import org.example.indivudualtransport.Model.route.Route;
+import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author Tobias Heidlund

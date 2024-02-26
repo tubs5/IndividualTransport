@@ -1,9 +1,8 @@
-package org.example.indivudualtransport.Model;
+package org.example.indivudualtransport.Model.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 

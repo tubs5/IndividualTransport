@@ -1,4 +1,4 @@
-package org.example.indivudualtransport.Model;
+package org.example.indivudualtransport.Model.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

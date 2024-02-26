@@ -1,14 +1,13 @@
 package org.example.indivudualtransport.Service;
 
-import org.example.indivudualtransport.Model.ComputedRoute;
-import org.example.indivudualtransport.Model.Route;
-import org.example.indivudualtransport.Model.TypeOfTravel;
+import org.example.indivudualtransport.Model.route.ComputedRoute;
+import org.example.indivudualtransport.Model.route.Route;
+import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Model.UserFavorite;
 import org.example.indivudualtransport.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

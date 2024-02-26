@@ -1,9 +1,8 @@
-package org.example.indivudualtransport.Model;
+package org.example.indivudualtransport.Model.route;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
 package org.example.indivudualtransport.Repository;
 
-import org.example.indivudualtransport.Model.Route;
+import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.UserFavorite;
 import org.springframework.data.jpa.repository.JpaRepository;
 
