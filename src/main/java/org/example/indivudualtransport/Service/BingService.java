@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @Service
 public class BingService {
 
-    String key;
+    String key = "AuzPVd9sOHw-1rPjd7n7_bz3zErQPzn4sld6Y8rpSM9E2IxJQNGFG5WLRbu1LOFu";
 
     private String getKey(){
         if(key != null){
