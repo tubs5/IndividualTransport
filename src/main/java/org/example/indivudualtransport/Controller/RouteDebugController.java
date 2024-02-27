@@ -1,5 +1,6 @@
 package org.example.indivudualtransport.Controller;
 
+import org.example.indivudualtransport.Config;
 import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Service.RouteService;
@@ -19,14 +20,17 @@ import java.util.HashMap;
 public class RouteDebugController {
     @Autowired
     RouteService routeService;
+    @Autowired
+    private Config properties;
 
     @GetMapping("possibleRoutes")
     public ResponseEntity<HashMap<String,String>> possibleRoutes(){
         return ResponseEntity.ok(routeService.getPossibleRoutes(TypeOfTravel.Foot));
     }
     @GetMapping("test")
-    public ResponseEntity<Route> testRoute(){
-        return ResponseEntity.ok(new Route(0, TypeOfTravel.Foot,101D,324D,"Start","Stop",new ArrayList<>()));
+    public ResponseEntity<String> testRoute(){
+        return ResponseEntity.ok("HELLOTEST"+properties.getMessage());
+        //return ResponseEntity.ok(new Route(0, TypeOfTravel.Foot,101D,324D,"Start","Stop",new ArrayList<>()));
     }
 
     @PostMapping("addRoute")
