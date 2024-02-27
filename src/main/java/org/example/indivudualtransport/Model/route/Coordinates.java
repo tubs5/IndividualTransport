@@ -1,9 +1,6 @@
 package org.example.indivudualtransport.Model.route;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,13 +10,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @AllArgsConstructor
-@Entity
 @NoArgsConstructor
+@Embeddable
 public class Coordinates {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    long Id;
     double lat,lon;
     public double getDistance(Coordinates c){
         return Math.sqrt(Math.pow(lat-c.lat,2) + Math.pow(lon-c.lon,2));
