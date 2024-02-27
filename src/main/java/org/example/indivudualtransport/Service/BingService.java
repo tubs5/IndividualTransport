@@ -5,6 +5,7 @@ import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import org.example.indivudualtransport.IndivudualTransportApplication;
+import org.example.indivudualtransport.Model.route.Coordinates;
 import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Model.bing.*;
@@ -92,8 +93,10 @@ public class BingService {
             for (ItineraryItem itineraryItem : r.getItineraryItems()) {
                 route.add(itineraryItem.getInstruction().getText());
             }
+            Coordinates start = new Coordinates(r.getActualStart().getCoordinates()[0],r.getActualStart().getCoordinates()[1]);
+            Coordinates end = new Coordinates(r.getActualEnd().getCoordinates()[0],r.getActualEnd().getCoordinates()[1]);
 
-            routes.add(new Route(0, car, r.getTravelDistance(), r.getTravelDuration(),
+            routes.add(new Route(0,start, end, car, r.getTravelDistance(), r.getTravelDuration(),
                     startPos,
                     dest, route));
         }
@@ -130,8 +133,10 @@ public class BingService {
             for (ItineraryItem itineraryItem : r.getItineraryItems()) {
                 route.add(itineraryItem.getInstruction().getText());
             }
+            Coordinates start = new Coordinates(r.getActualStart().getCoordinates()[0],r.getActualStart().getCoordinates()[1]);
+            Coordinates end = new Coordinates(r.getActualEnd().getCoordinates()[0],r.getActualEnd().getCoordinates()[1]);
 
-            routes.add(new Route(0,TypeOfTravel.Bike,r.getTravelDistance(),r.getTravelDuration()/2.0,
+            routes.add(new Route(0,start,end,TypeOfTravel.Bike,r.getTravelDistance(),r.getTravelDuration()/2.0,
                    startPos,
                     dest,route));
         }
