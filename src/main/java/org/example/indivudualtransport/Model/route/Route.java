@@ -17,7 +17,7 @@ public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    @Transient
+    @OneToOne
     final Coordinates startCoords,stopCoords;
     final TypeOfTravel typeOfTravel;
     final Double distance;
