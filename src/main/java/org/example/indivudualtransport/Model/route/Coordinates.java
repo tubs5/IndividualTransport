@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Coordinates {
 
-    double lat,lon;
+    @Basic double lat,lon;
     public double getDistance(Coordinates c){
         return Math.sqrt(Math.pow(lat-c.lat,2) + Math.pow(lon-c.lon,2));
     }

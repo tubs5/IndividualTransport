@@ -17,8 +17,18 @@ public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @AttributeOverrides({
+            @AttributeOverride(name="lat",column=@Column(name="startlat")),
+            @AttributeOverride(name="lon",column=@Column(name="startlon"))
+    })
     @Embedded
-    Coordinates startCoords,stopCoords;
+    Coordinates startCoords;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="lat",column=@Column(name="stoplat")),
+            @AttributeOverride(name="lon",column=@Column(name="stoplon"))
+    })
+    Coordinates stopCoords;
     final TypeOfTravel typeOfTravel;
     final Double distance;
     final Double time;
