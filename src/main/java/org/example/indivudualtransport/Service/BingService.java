@@ -4,6 +4,7 @@ import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import org.example.indivudualtransport.IndivudualTransportApplication;
 import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Model.bing.*;
@@ -24,24 +25,10 @@ import java.util.ArrayList;
 @Service
 public class BingService {
 
-    String key;
+
 
     private String getKey(){
-        if(key != null){
-            return key;
-        }
-        String keyVaultName = "mu23vault";
-        String keyVaultUri = "https://" + keyVaultName + ".vault.azure.net";
-
-
-        SecretClient secretClient = new SecretClientBuilder()
-                .vaultUrl(keyVaultUri)
-                .credential(new DefaultAzureCredentialBuilder().build())
-                .buildClient();
-        KeyVaultSecret retrievedSecret = secretClient.getSecret("maps");
-        key = retrievedSecret.getValue();
-        return key;
-
+        return IndivudualTransportApplication.bingKey;
     }
 
 
