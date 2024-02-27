@@ -11,4 +11,5 @@ public class RouteLeg{
     String description, endTime;
     RouteSubLeg[] routeSubLegs;
     ItineraryItem[] itineraryItems;
+    Point actualStart, actualEnd;
 }
