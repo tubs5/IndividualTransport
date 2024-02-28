@@ -1,6 +1,7 @@
 package org.example.indivudualtransport.Controller;
 
 import org.example.indivudualtransport.Model.route.ComputedRoute;
+import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Service.RouteService;
 import org.example.indivudualtransport.Service.UserService;
@@ -18,6 +19,12 @@ public class RouteController {
     RouteService routeService;
     @Autowired
     UserService userService;
+    @GetMapping("raw")
+    public ResponseEntity<Route> getRouteRaw(@PathVariable String modeOfTransport,
+                                          @PathVariable String startPos, @PathVariable String dest){
+        return ResponseEntity.ok(routeService.getRoute(TypeOfTravel.valueOf(modeOfTransport),startPos,dest).get(0));
+    }
+
     @GetMapping()
     public ResponseEntity<ComputedRoute> getRoute(@PathVariable String modeOfTransport,
                                                   @PathVariable String startPos, @PathVariable String dest){

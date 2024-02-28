@@ -21,6 +21,8 @@ public class RouteService {
     BingService bingService;
     @Autowired
     WeatherService weatherService;
+    @Autowired
+    KomunalTransportService komunalTransportService;
 
     public void saveRoute(Route route){
         routeRepository.save(route);
@@ -28,7 +30,7 @@ public class RouteService {
     public void saveRoutes(List<Route> routes){
         routeRepository.saveAll(routes);
     }
-    private List<Route> getRoute(TypeOfTravel typeOfTravel, String from, String to){
+    public List<Route> getRoute(TypeOfTravel typeOfTravel, String from, String to){
         List<Route> routes = routeRepository.getRoutesByStartAndStopAndTypeOfTravel(from,to,typeOfTravel);
         if(routes.isEmpty()){
             List<Route> bingRoutes;
@@ -47,7 +49,18 @@ public class RouteService {
         List<Route> routes = getRoute(typeOfTravel,from,to);
         ComputedRoute computedRoute = getRoute(routes.get(0));
         routes.remove(0);
-        computedRoute.setAlternativeRoutes(routes);
+
+        if(typeOfTravel == TypeOfTravel.Foot || typeOfTravel == TypeOfTravel.Bike){
+            computedRoute.setAlternativePublicRoute(komunalTransportService.checkForPublicTransportRoute(from,to));
+        }
+
+        for (Route route : routes) {
+            LocalTime arrivalTime = LocalTime.now().plusSeconds(route.getTime().longValue());
+
+            computedRoute.addAlternativeRoute( new ComputedRoute(route,arrivalTime,
+                    weatherService.getWeather(route.getStop(),arrivalTime),null));
+        }
+
         return computedRoute;
     }
     public ComputedRoute getRoute(Route route){

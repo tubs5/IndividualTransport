@@ -29,6 +29,9 @@ public class Route {
             @AttributeOverride(name="lon",column=@Column(name="stoplon"))
     })
     Coordinates stopCoords;
+
+
+
     final TypeOfTravel typeOfTravel;
     final Double distance;
     final Double time;
