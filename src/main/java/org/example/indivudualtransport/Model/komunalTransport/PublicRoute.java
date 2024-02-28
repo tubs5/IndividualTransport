@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.indivudualtransport.Model.route.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PublicRoute {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+public class PublicRoute extends Route {
+    private long Id;
 
     private String startLoc;
 

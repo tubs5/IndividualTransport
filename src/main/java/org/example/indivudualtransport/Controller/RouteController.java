@@ -26,23 +26,28 @@ public class RouteController {
     }
 
     @GetMapping()
-    public ResponseEntity<ComputedRoute> getRoute(@PathVariable String modeOfTransport,
+    public ResponseEntity<ComputedRoute> getRoute(@RequestHeader String username, @PathVariable String modeOfTransport,
                                                   @PathVariable String startPos, @PathVariable String dest){
-        return ResponseEntity.ok(routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport)));
+        return ResponseEntity.ok(routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username));
     }
-    @PostMapping("/favorite")
+
+
+
+
+    //TODO: ALLA FAVORITISERADE RUTTER BODE SPARAS OCH INTE BARA FÖRSTA DELEN;
+    @PutMapping("/favorite")
     public ResponseEntity<ComputedRoute> favorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
-        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport));
-        userService.addFavorite(route.getRoute(),username);
+        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
+        userService.addFavorite(route.getRoute().get(0),username);
 
         return ResponseEntity.ok(route);
     }
     @DeleteMapping("/favorite")
     public ResponseEntity<ComputedRoute> unFavorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
-        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport));
-        userService.removeFavorite(route.getRoute(),username);
+        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
+        userService.removeFavorite(route.getRoute().get(0),username);
 
         return ResponseEntity.ok(route);
     }

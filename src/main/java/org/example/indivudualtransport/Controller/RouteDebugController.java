@@ -1,6 +1,9 @@
 package org.example.indivudualtransport.Controller;
 
 import org.example.indivudualtransport.Config;
+import org.example.indivudualtransport.Model.komunalTransport.PublicRoute;
+import org.example.indivudualtransport.Model.komunalTransport.PublicWalkRoute;
+import org.example.indivudualtransport.Model.komunalTransport.RouteRequestDTO;
 import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Service.RouteService;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +44,18 @@ public class RouteDebugController {
     }
 
 
+    @PostMapping("TEST123")
+    public ResponseEntity<PublicWalkRoute> getPublicWalkRoute(@RequestBody RouteRequestDTO requestDTO) {
 
+        return ResponseEntity.ok(new PublicWalkRoute(null,null));
+    }
+
+    @GetMapping("TEST123")
+    public ResponseEntity<String> getPublicWalkRoute() {
+
+        RestTemplate temp = new RestTemplate();
+        ResponseEntity<PublicWalkRoute> string = temp.postForEntity("http://localhost:8080/api/v1/route/TEST123",new RouteRequestDTO("apa123","stopPos"), PublicWalkRoute.class);
+        return ResponseEntity.ok(string.toString());
+    }
 
 }

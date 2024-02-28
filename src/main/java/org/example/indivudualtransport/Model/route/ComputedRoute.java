@@ -17,13 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class ComputedRoute {
-    Route route;
+    List<Route> route;
     LocalTime timeOfArrival;
     Weather weather;
     HashMap<String ,Long> estimatedDelays;
     List<ComputedRoute> alternativeRoutes;
     PublicWalkRoute alternativePublicRoute;
     public ComputedRoute(Route route, LocalTime timeOfArrival, Weather weather, List<ComputedRoute> alternativeRoutes) {
+        this.route = new ArrayList<>();
+        this.route.add(route);
+        this.timeOfArrival = timeOfArrival;
+        this.weather = weather;
+        this.alternativeRoutes = alternativeRoutes;
+    }
+    public ComputedRoute(List<Route> route, LocalTime timeOfArrival, Weather weather, List<ComputedRoute> alternativeRoutes) {
         this.route = route;
         this.timeOfArrival = timeOfArrival;
         this.weather = weather;
