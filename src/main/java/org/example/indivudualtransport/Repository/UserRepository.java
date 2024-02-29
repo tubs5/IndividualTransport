@@ -1,7 +1,7 @@
 package org.example.indivudualtransport.Repository;
 
-import org.example.indivudualtransport.Model.route.Route;
 import org.example.indivudualtransport.Model.UserFavorite;
+import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserFavorite,Long> {
 
     List<UserFavorite> getByUsername(String username);
-    void deleteByUsernameAndRoute(String username, Route route);
-    UserFavorite getByUsernameAndRoute(String username, Route route);
+    void deleteByUsernameAndFromAndToAndTypeOfTravel(String username, String from, String to, TypeOfTravel typeOfTravel);
+    UserFavorite getByUsernameAndFromAndToAndTypeOfTravel(String username, String from, String to, TypeOfTravel typeOfTravel);
 
 }

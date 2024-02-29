@@ -1,7 +1,6 @@
 package org.example.indivudualtransport.Controller;
 
 import org.example.indivudualtransport.Config;
-import org.example.indivudualtransport.Model.komunalTransport.PublicRoute;
 import org.example.indivudualtransport.Model.komunalTransport.PublicWalkRoute;
 import org.example.indivudualtransport.Model.komunalTransport.RouteRequestDTO;
 import org.example.indivudualtransport.Model.route.Route;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

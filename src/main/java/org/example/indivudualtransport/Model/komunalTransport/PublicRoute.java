@@ -1,20 +1,15 @@
 package org.example.indivudualtransport.Model.komunalTransport;
 
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.indivudualtransport.Model.route.Route;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PublicRoute extends Route {
+public class PublicRoute {
     private long Id;
 
     private String startLoc;

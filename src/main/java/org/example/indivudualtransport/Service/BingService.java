@@ -1,9 +1,5 @@
 package org.example.indivudualtransport.Service;
 
-import com.azure.identity.DefaultAzureCredentialBuilder;
-import com.azure.security.keyvault.secrets.SecretClient;
-import com.azure.security.keyvault.secrets.SecretClientBuilder;
-import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import org.example.indivudualtransport.IndivudualTransportApplication;
 import org.example.indivudualtransport.Model.route.Coordinates;
 import org.example.indivudualtransport.Model.route.Route;
@@ -14,9 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URL;
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 /**
@@ -66,7 +59,7 @@ public class BingService {
         StringBuilder url = generateUrl(startPos, dest, via);
 
         RestTemplate resT = new RestTemplate();
-        System.out.println(url.toString());
+        System.out.println(url);
         ResponseEntity<BingMapsResponse> response =
                 resT.getForEntity(url.toString(),
                         BingMapsResponse.class);
@@ -126,20 +119,9 @@ public class BingService {
                 resT.getForEntity("http://dev.virtualearth.net/REST/v1/Routes?wayPoint.1="+startPos+"&wp.2="+dest+"&maxSolutions=3&travelMode="+"Walking"+"&key="+ getKey(),
                         BingMapsResponse.class);
 
-        for (ResourceSet rs : response.getBody().getResourceSets()){
-            RouteLeg r = rs.getResources()[0].getRouteLegs()[0];
 
-            ArrayList<String> route = new  ArrayList<String>();
-            for (ItineraryItem itineraryItem : r.getItineraryItems()) {
-                route.add(itineraryItem.getInstruction().getText());
-            }
-            Coordinates start = new Coordinates(r.getActualStart().getCoordinates()[0],r.getActualStart().getCoordinates()[1]);
-            Coordinates end = new Coordinates(r.getActualEnd().getCoordinates()[0],r.getActualEnd().getCoordinates()[1]);
+        extractRoute(response.getBody(),routes,TypeOfTravel.Foot,startPos,dest);
 
-            routes.add(new Route(0,start,end,TypeOfTravel.Bike,r.getTravelDistance(),r.getTravelDuration()/2.0,
-                   startPos,
-                    dest,route));
-        }
         return routes;
     }
 }

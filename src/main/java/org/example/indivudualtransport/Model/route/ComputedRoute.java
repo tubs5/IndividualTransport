@@ -30,24 +30,5 @@ public class ComputedRoute {
         this.weather = weather;
         this.alternativeRoutes = alternativeRoutes;
     }
-    public ComputedRoute(List<Route> route, LocalTime timeOfArrival, Weather weather, List<ComputedRoute> alternativeRoutes) {
-        this.route = route;
-        this.timeOfArrival = timeOfArrival;
-        this.weather = weather;
-        this.alternativeRoutes = alternativeRoutes;
-    }
-    void addDelay(String reason, long time){
-        estimatedDelays.put(reason,time);
-        timeOfArrival = timeOfArrival.plusSeconds(time);
-    }
-
-
-
-    public void addAlternativeRoute(ComputedRoute route){
-        if(alternativeRoutes == null){
-            alternativeRoutes = new ArrayList<>();
-        }
-        alternativeRoutes.add(route);
-    }
 
 }

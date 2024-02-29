@@ -1,13 +1,15 @@
 package org.example.indivudualtransport.Controller;
 
-import org.example.indivudualtransport.Model.route.ComputedRoute;
 import org.example.indivudualtransport.Model.route.Route;
+import org.example.indivudualtransport.Model.route.Routes.BaseRoute;
 import org.example.indivudualtransport.Model.route.TypeOfTravel;
 import org.example.indivudualtransport.Service.RouteService;
 import org.example.indivudualtransport.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Tobias Heidlund
@@ -26,8 +28,8 @@ public class RouteController {
     }
 
     @GetMapping()
-    public ResponseEntity<ComputedRoute> getRoute(@RequestHeader String username, @PathVariable String modeOfTransport,
-                                                  @PathVariable String startPos, @PathVariable String dest){
+    public ResponseEntity<List<List<BaseRoute>>> getRoute(@RequestHeader String username, @PathVariable String modeOfTransport,
+                                                          @PathVariable String startPos, @PathVariable String dest){
         return ResponseEntity.ok(routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username));
     }
 
@@ -36,18 +38,18 @@ public class RouteController {
 
     //TODO: ALLA FAVORITISERADE RUTTER BODE SPARAS OCH INTE BARA FÖRSTA DELEN;
     @PutMapping("/favorite")
-    public ResponseEntity<ComputedRoute> favorite(@RequestHeader String username, @PathVariable String modeOfTransport,
+    public ResponseEntity<List<List<BaseRoute>>> favorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
-        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
-        userService.addFavorite(route.getRoute().get(0),username);
+        List<List<BaseRoute>> route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
+        userService.addFavorite(route.get(0),username);
 
         return ResponseEntity.ok(route);
     }
     @DeleteMapping("/favorite")
-    public ResponseEntity<ComputedRoute> unFavorite(@RequestHeader String username, @PathVariable String modeOfTransport,
+    public ResponseEntity<List<List<BaseRoute>>> unFavorite(@RequestHeader String username, @PathVariable String modeOfTransport,
                                            @PathVariable String startPos, @PathVariable String dest){
-        ComputedRoute route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
-        userService.removeFavorite(route.getRoute().get(0),username);
+        List<List<BaseRoute>> route = routeService.getRoute(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
+        userService.removeFavorite(startPos,dest,TypeOfTravel.valueOf(modeOfTransport),username);
 
         return ResponseEntity.ok(route);
     }
